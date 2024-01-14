@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cibofdevs.instagramclone.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AuthCallback {
 
     private val vm: MainViewModel by viewModels()
     private val adapter = PostListAdapter(arrayListOf())
@@ -28,11 +28,20 @@ class MainActivity : AppCompatActivity() {
     fun setupUI() {
         binding.postsRV.adapter = adapter
         binding.postsRV.layoutManager = LinearLayoutManager(this)
+
+        binding.loginButton.setOnClickListener {
+            val dialog = LoginDialog(this)
+            dialog.show(supportFragmentManager, "LoginDialog")
+        }
     }
 
     fun setupObservables() {
         vm.posts.observe(this, Observer { posts ->
             adapter.updatePosts(posts)
         })
+    }
+
+    override fun onLogin(username: String, password: String) {
+
     }
 }
