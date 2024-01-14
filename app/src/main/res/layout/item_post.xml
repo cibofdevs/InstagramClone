@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:text="Username: "
             android:textStyle="bold"
-            android:paddingRight="10dp" />
+            android:paddingRight="5dp" />
         
         <TextView
             android:id="@+id/captionText"
