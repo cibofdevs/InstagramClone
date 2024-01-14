@@ -3,6 +3,7 @@ package com.cibofdevs.instagramclone
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cibofdevs.instagramclone.databinding.ActivityMainBinding
 
@@ -21,10 +22,17 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         setupUI()
+        setupObservables()
     }
 
     fun setupUI() {
         binding.postsRV.adapter = adapter
         binding.postsRV.layoutManager = LinearLayoutManager(this)
+    }
+
+    fun setupObservables() {
+        vm.posts.observe(this, Observer { posts ->
+            adapter.updatePosts(posts)
+        })
     }
 }
