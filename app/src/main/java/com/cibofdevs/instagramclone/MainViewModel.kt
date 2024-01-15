@@ -63,6 +63,10 @@ class MainViewModel: ViewModel() {
             })
     }
 
+    fun onSignup(username: String, email: String, password: String) {
+
+    }
+
     fun onLogout() {
         accessToken = ""
         currentUsername = null
