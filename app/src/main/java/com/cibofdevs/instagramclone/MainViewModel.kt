@@ -10,6 +10,8 @@ import com.cibofdevs.instagramclone.api.UserSignupResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainViewModel: ViewModel() {
 
@@ -31,8 +33,15 @@ class MainViewModel: ViewModel() {
             .enqueue(object : Callback<List<Post>> {
                 override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                     if (response.isSuccessful) {
-                        val list = response.body()
+                        val list = response.body()?.sortedByDescending { post ->
+                            val split = post.timestamp.split(".")
+                            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+                            val date = LocalDateTime.parse(split[0], formatter)
+                            date
+                        }
                         posts.value = list ?: listOf()
+                    } else {
+                        message.value = response.message()
                     }
                 }
 
