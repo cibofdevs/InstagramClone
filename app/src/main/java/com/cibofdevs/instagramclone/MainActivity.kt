@@ -2,6 +2,7 @@ package com.cibofdevs.instagramclone
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -51,7 +52,15 @@ class MainActivity : AppCompatActivity(), AuthCallback {
         }
     }
 
+    fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
     fun setupObservables() {
+        vm.message.observe(this, Observer { msg ->
+            showToast(msg)
+        })
+
         vm.posts.observe(this, Observer { posts ->
             adapter.updatePosts(posts)
         })
