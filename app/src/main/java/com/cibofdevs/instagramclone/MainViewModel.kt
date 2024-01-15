@@ -62,4 +62,11 @@ class MainViewModel: ViewModel() {
 
             })
     }
+
+    fun onLogout() {
+        accessToken = ""
+        currentUsername = null
+        currentUserId = null
+        loggedIn.value = false
+    }
 }

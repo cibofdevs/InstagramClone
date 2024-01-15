@@ -3,6 +3,7 @@ package com.cibofdevs.instagramclone
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,15 @@ class MainActivity : AppCompatActivity(), AuthCallback {
         binding.loginButton.setOnClickListener {
             val dialog = LoginDialog(this)
             dialog.show(supportFragmentManager, "LoginDialog")
+        }
+
+        binding.logoutButton.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure?")
+                .setPositiveButton("Yes") {dialog, which -> vm.onLogout()}
+                .setNegativeButton("Cancel") {dialog, which -> dialog.dismiss()}
+                .show()
         }
     }
 
