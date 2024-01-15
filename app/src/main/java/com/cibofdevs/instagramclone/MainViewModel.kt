@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cibofdevs.instagramclone.api.InstagramApiService
 import com.cibofdevs.instagramclone.api.Post
+import com.cibofdevs.instagramclone.api.UserLoginResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +29,26 @@ class MainViewModel: ViewModel() {
                 }
 
                 override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                    val i = 0
+                }
+
+            })
+    }
+
+    fun onLogin(username: String, password: String) {
+        InstagramApiService.api
+            .login(username, password)
+            .enqueue(object : Callback<UserLoginResponse> {
+                override fun onResponse(
+                    call: Call<UserLoginResponse>,
+                    response: Response<UserLoginResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val i = 0
+                    }
+                }
+
+                override fun onFailure(call: Call<UserLoginResponse>, t: Throwable) {
                     val i = 0
                 }
 
