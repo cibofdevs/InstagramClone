@@ -1,5 +1,6 @@
 package com.cibofdevs.instagramclone
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,13 +9,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.core.app.ActivityCompat.startActivityForResult
 import com.cibofdevs.instagramclone.databinding.ActivityMainBinding
+import java.io.FileNotFoundException
+import java.io.InputStream
 
 class MainActivity : AppCompatActivity(), AuthCallback {
 
     private val vm: MainViewModel by viewModels()
     private val adapter = PostListAdapter(arrayListOf())
     private lateinit var binding: ActivityMainBinding
+
+    private var RESULT_LOAD_IMG = 1
+    private var imageStream: InputStream? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +56,28 @@ class MainActivity : AppCompatActivity(), AuthCallback {
                 .setPositiveButton("Yes") {dialog, which -> vm.onLogout()}
                 .setNegativeButton("Cancel") {dialog, which -> dialog.dismiss()}
                 .show()
+        }
+
+        binding.selectImageButton.setOnClickListener {
+            val photoPickerIntent = Intent(Intent.ACTION_PICK)
+            photoPickerIntent.type = "image/*"
+            startActivityForResult(this, photoPickerIntent, RESULT_LOAD_IMG, null)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RESULT_LOAD_IMG) {
+            try {
+                data?.data?.let {
+                    imageStream = contentResolver.openInputStream(it)
+                    showToast("image selected")
+                }
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+                showToast("Something went wrong")
+            }
         }
     }
 
