@@ -21,3 +21,10 @@ data class Comment(
     val username: String,
     val timestamp: String
 )
+
+data class UserLoginResponse(
+    @SerializedName("user_id") val userId: Int,
+    val username: String,
+    @SerializedName("access_token") val accessToken: String,
+    @SerializedName("token_type") val tokenType: String
+)
