@@ -12,6 +12,11 @@ import retrofit2.Response
 class MainViewModel: ViewModel() {
 
     val posts = MutableLiveData<List<Post>>()
+    val loggedIn = MutableLiveData<Boolean>()
+
+    private var accessToken: String = ""
+    private var currentUsername: String? = null
+    private var currentUserId: Int? = null
 
     init {
         getAllPosts()
@@ -44,7 +49,10 @@ class MainViewModel: ViewModel() {
                     response: Response<UserLoginResponse>
                 ) {
                     if (response.isSuccessful) {
-                        val i = 0
+                        accessToken = "${response.body()?.tokenType} ${response.body()?.accessToken}"
+                        currentUsername = response.body()?.username
+                        currentUserId = response.body()?.userId
+                        loggedIn.value = true
                     }
                 }
 

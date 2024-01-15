@@ -1,6 +1,7 @@
 package com.cibofdevs.instagramclone
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -38,6 +39,13 @@ class MainActivity : AppCompatActivity(), AuthCallback {
     fun setupObservables() {
         vm.posts.observe(this, Observer { posts ->
             adapter.updatePosts(posts)
+        })
+
+        vm.loggedIn.observe(this, Observer { loggedIn ->
+            binding.loginLayout.visibility = if (loggedIn) View.GONE else View.VISIBLE
+            binding.logoutLayout.visibility = if (loggedIn) View.VISIBLE else View.GONE
+            binding.uploadUnavailableMessage.visibility = if (loggedIn) View.GONE else View.VISIBLE
+            binding.uploadLayout.visibility = if (loggedIn) View.VISIBLE else View.GONE
         })
     }
 
