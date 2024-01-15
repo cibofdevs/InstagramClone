@@ -36,6 +36,11 @@ class MainActivity : AppCompatActivity(), AuthCallback {
             dialog.show(supportFragmentManager, "LoginDialog")
         }
 
+        binding.signupButton.setOnClickListener {
+            val dialog = SignupDialog(this)
+            dialog.show(supportFragmentManager, "SignupDialog")
+        }
+
         binding.logoutButton.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("Logout")
@@ -61,5 +66,9 @@ class MainActivity : AppCompatActivity(), AuthCallback {
 
     override fun onLogin(username: String, password: String) {
         vm.onLogin(username, password)
+    }
+
+    override fun onSignup(username: String, email: String, password: String) {
+        vm.onSignup(username, email, password)
     }
 }
