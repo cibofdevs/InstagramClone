@@ -28,3 +28,14 @@ data class UserLoginResponse(
     @SerializedName("access_token") val accessToken: String,
     @SerializedName("token_type") val tokenType: String
 )
+
+data class UserSignupRequest(
+    val username: String,
+    val email: String,
+    val password: String
+)
+
+data class UserSignupResponse(
+    val username: String,
+    val email: String
+)
