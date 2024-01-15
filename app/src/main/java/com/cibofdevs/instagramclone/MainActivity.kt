@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity(), AuthCallback {
             binding.logoutLayout.visibility = if (loggedIn) View.VISIBLE else View.GONE
             binding.uploadUnavailableMessage.visibility = if (loggedIn) View.GONE else View.VISIBLE
             binding.uploadLayout.visibility = if (loggedIn) View.VISIBLE else View.GONE
+            adapter.onAuth(loggedIn)
         })
     }
 
