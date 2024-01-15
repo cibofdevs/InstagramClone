@@ -42,6 +42,6 @@ class MainActivity : AppCompatActivity(), AuthCallback {
     }
 
     override fun onLogin(username: String, password: String) {
-
+        vm.onLogin(username, password)
     }
 }
