@@ -161,6 +161,26 @@ class MainViewModel: ViewModel() {
             })
     }
 
+    fun onDeletePost(postId: Int) {
+        InstagramApiService.api
+            .deletePost(postId, accessToken)
+            .enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        message.value = "Post deleted"
+                        getAllPosts()
+                    } else {
+                        message.value = "Post cannot be deleted"
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    handleError(t)
+                }
+
+            })
+    }
+
     private fun handleError(t: Throwable) {
         message.value = t.localizedMessage
         t.printStackTrace()
