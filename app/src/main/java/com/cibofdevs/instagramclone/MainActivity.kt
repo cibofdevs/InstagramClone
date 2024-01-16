@@ -3,6 +3,7 @@ package com.cibofdevs.instagramclone
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -77,6 +78,12 @@ class MainActivity : AppCompatActivity(), AuthCallback, PostCallback {
             }
 
             closeKeyboard()
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            adapter.updatePosts(listOf())
+            vm.getAllPosts()
+            Handler().postDelayed({ binding.refreshLayout.isRefreshing = false }, 1000)
         }
     }
 
