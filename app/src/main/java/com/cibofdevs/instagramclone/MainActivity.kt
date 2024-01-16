@@ -134,4 +134,9 @@ class MainActivity : AppCompatActivity(), AuthCallback, PostCallback {
     override fun onDeletePost(postId: Int) {
         vm.onDeletePost(postId)
     }
+
+    override fun onComment(text: String, postId: Int) {
+        vm.onComment(text, postId)
+        closeKeyboard()
+    }
 }
