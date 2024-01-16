@@ -1,8 +1,10 @@
 package com.cibofdevs.instagramclone
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -63,6 +65,24 @@ class MainActivity : AppCompatActivity(), AuthCallback {
             photoPickerIntent.type = "image/*"
             startActivityForResult(this, photoPickerIntent, RESULT_LOAD_IMG, null)
         }
+
+        binding.performUpload.setOnClickListener {
+            if (imageStream == null) {
+                showToast("Please select image")
+                return@setOnClickListener
+            } else {
+                vm.onPostUpload(imageStream!!, binding.caption.text.toString())
+                imageStream = null
+                binding.caption.setText("")
+            }
+
+            closeKeyboard()
+        }
+    }
+
+    private fun closeKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.performUpload.windowToken, 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
