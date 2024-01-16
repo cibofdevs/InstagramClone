@@ -39,3 +39,7 @@ data class UserSignupResponse(
     val username: String,
     val email: String
 )
+
+data class ImageUploadResponse(
+    val filename: String
+)
