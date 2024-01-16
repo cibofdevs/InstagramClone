@@ -40,4 +40,9 @@ interface InstagramApi {
     fun deletePost(@Path("id") id: Int,
                    @Header("Authorization") auth: String
     ): Call<String>
+
+    @POST("comment")
+    fun createComment(@Body comment: CreateCommentRequest,
+                      @Header("Authorization") auth: String
+    ): Call<CreateCommentResponse>
 }
