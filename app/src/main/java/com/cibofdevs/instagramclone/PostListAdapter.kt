@@ -67,6 +67,13 @@ class PostListAdapter(private var posts: List<Post>, val postCallback: PostCallb
             binding.deleteButton.setOnClickListener { postCallback.onDeletePost(post.id) }
 
             binding.newCommentLayout.visibility = if (loggedIn) View.VISIBLE else View.GONE
+            binding.commentButton.setOnClickListener {
+                val text = binding.commentText.text.toString()
+                if (!text.isNullOrEmpty()) {
+                    postCallback.onComment(text, post.id)
+                }
+                binding.commentText.setText("")
+            }
         }
     }
 }
