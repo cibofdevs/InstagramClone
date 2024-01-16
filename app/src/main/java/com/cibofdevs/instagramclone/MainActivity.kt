@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), AuthCallback {
             try {
                 data?.data?.let {
                     imageStream = contentResolver.openInputStream(it)
-                    showToast("image selected")
+                    showToast("Image selected")
                 }
             } catch (e: FileNotFoundException) {
                 e.printStackTrace()
