@@ -29,4 +29,9 @@ interface InstagramApi {
     fun uploadImage(@Part image: MultipartBody.Part,
                     @Header("Authorization") auth: String
     ): Call<ImageUploadResponse>
+
+    @POST("post")
+    fun createPost(@Body post: CreatePostRequest,
+                   @Header("Authorization") auth: String
+    ): Call<CreatePostResponse>
 }
