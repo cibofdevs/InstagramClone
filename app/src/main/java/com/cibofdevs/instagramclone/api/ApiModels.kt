@@ -59,3 +59,17 @@ data class CreatePostResponse(
     val timestamp: String,
     val id: Int
 )
+
+data class CreateCommentRequest(
+    val username: String,
+    val text: String,
+    @SerializedName("post_id") val postId: Int
+)
+
+data class CreateCommentResponse(
+    val id: Int,
+    val username: String,
+    val text: String,
+    @SerializedName("post_id") val postId: Int,
+    val timestamp: String
+)
