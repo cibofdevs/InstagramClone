@@ -43,3 +43,19 @@ data class UserSignupResponse(
 data class ImageUploadResponse(
     val filename: String
 )
+
+data class CreatePostRequest(
+    @SerializedName("image_url") val imageUrl: String,
+    @SerializedName("image_url_type") val imageUrlType: String,
+    val caption: String,
+    @SerializedName("creator_id") val creatorId: Int
+)
+
+data class CreatePostResponse(
+    @SerializedName("image_url") val imageUrl: String,
+    @SerializedName("image_url_type") val imageUrlType: String,
+    val caption: String,
+    @SerializedName("user_id") val userId: Int,
+    val timestamp: String,
+    val id: Int
+)
