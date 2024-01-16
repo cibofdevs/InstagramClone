@@ -2,6 +2,8 @@ package com.cibofdevs.instagramclone
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.cibofdevs.instagramclone.api.CreateCommentRequest
+import com.cibofdevs.instagramclone.api.CreateCommentResponse
 import com.cibofdevs.instagramclone.api.CreatePostRequest
 import com.cibofdevs.instagramclone.api.CreatePostResponse
 import com.cibofdevs.instagramclone.api.ImageUploadResponse
@@ -175,6 +177,35 @@ class MainViewModel: ViewModel() {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
+                    handleError(t)
+                }
+
+            })
+    }
+
+    fun onComment(text: String, postId: Int) {
+        if (currentUsername.isNullOrEmpty()) {
+            message.value = "Something went wrong"
+            return
+        }
+
+        val createCommentRequest = CreateCommentRequest(currentUsername!!, text, postId)
+        InstagramApiService.api
+            .createComment(createCommentRequest, accessToken)
+            .enqueue(object : Callback<CreateCommentResponse> {
+                override fun onResponse(
+                    call: Call<CreateCommentResponse>,
+                    response: Response<CreateCommentResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        message.value = "Comment created"
+                        getAllPosts()
+                    } else {
+                        message.value = "Cannot post a comment"
+                    }
+                }
+
+                override fun onFailure(call: Call<CreateCommentResponse>, t: Throwable) {
                     handleError(t)
                 }
 
