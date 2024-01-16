@@ -16,10 +16,10 @@ import com.cibofdevs.instagramclone.databinding.ActivityMainBinding
 import java.io.FileNotFoundException
 import java.io.InputStream
 
-class MainActivity : AppCompatActivity(), AuthCallback {
+class MainActivity : AppCompatActivity(), AuthCallback, PostCallback {
 
     private val vm: MainViewModel by viewModels()
-    private val adapter = PostListAdapter(arrayListOf())
+    private val adapter = PostListAdapter(arrayListOf(), this)
     private lateinit var binding: ActivityMainBinding
 
     private var RESULT_LOAD_IMG = 1
@@ -129,5 +129,9 @@ class MainActivity : AppCompatActivity(), AuthCallback {
 
     override fun onSignup(username: String, email: String, password: String) {
         vm.onSignup(username, email, password)
+    }
+
+    override fun onDeletePost(postId: Int) {
+        vm.onDeletePost(postId)
     }
 }
