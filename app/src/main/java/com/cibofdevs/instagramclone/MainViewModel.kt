@@ -2,6 +2,8 @@ package com.cibofdevs.instagramclone
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.cibofdevs.instagramclone.api.CreatePostRequest
+import com.cibofdevs.instagramclone.api.CreatePostResponse
 import com.cibofdevs.instagramclone.api.ImageUploadResponse
 import com.cibofdevs.instagramclone.api.InstagramApiService
 import com.cibofdevs.instagramclone.api.Post
@@ -117,14 +119,42 @@ class MainViewModel: ViewModel() {
                 ) {
                     val imageUrl = response.body()?.filename
                     if (response.isSuccessful && !imageUrl.isNullOrEmpty()) {
-                        // call upload method
-                        val i = 0
+                        finishPostUpload(imageUrl, caption)
                     } else {
                         message.value = "Something went wrong"
                     }
                 }
 
                 override fun onFailure(call: Call<ImageUploadResponse>, t: Throwable) {
+                    handleError(t)
+                }
+
+            })
+    }
+
+    private fun finishPostUpload(imageUrl: String, caption: String) {
+        if (currentUserId == null) {
+            message.value = "Something went wrong"
+            return
+        }
+
+        val createPostRequest = CreatePostRequest(imageUrl, "relative", caption, currentUserId!!)
+        InstagramApiService.api
+            .createPost(createPostRequest, accessToken)
+            .enqueue(object : Callback<CreatePostResponse> {
+                override fun onResponse(
+                    call: Call<CreatePostResponse>,
+                    response: Response<CreatePostResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        message.value = "Post created successfully"
+                        getAllPosts()
+                    } else {
+                        message.value = "Something went wrong"
+                    }
+                }
+
+                override fun onFailure(call: Call<CreatePostResponse>, t: Throwable) {
                     handleError(t)
                 }
 
