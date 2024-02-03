@@ -9,9 +9,9 @@
      ```bash
      pip install -r requirements.txt
      ```
-  - Run API:
-    ```bash
-     uvicorn main:app --reload
-     ```   
+   - Run API:
+     ```bash
+      uvicorn main:app --reload
+      ```   
 2. Run Apps
    <br /> <img src="sample.png" width="300px" />
