@@ -3,13 +3,15 @@
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" width="15px" /> An Instagram Clone Apps Built with Kotlin
           
 ## HOW TO
-1. Clone & Run Backend API
-   - <a href="https://github.com/cibofdevs/instagam-clone-api">Clone Project</a>
-   - Intall Dependencies & Run Backend:
+1. Backend Configuration
+   - <a href="https://github.com/cibofdevs/instagam-clone-api">Clone Backend API</a>
+   - Intall Dependencies:
      ```bash
      pip install -r requirements.txt
-     uvicorn main:app --reload
      ```
-   
-3. Run Instagram Clone Android Apps
+  - Run API:
+    ```bash
+     uvicorn main:app --reload
+     ```   
+2. Run Apps
    <br /> <img src="sample.png" width="300px" />
