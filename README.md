@@ -12,4 +12,4 @@
      ```
    
 3. Run Instagram Clone Android Apps
-   <img src="sample.png" width="50px" />
+   <br /> <img src="sample.png" width="150px" />
