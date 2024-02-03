@@ -5,7 +5,7 @@
 ## HOW TO
 1. Backend Configuration
    - <a href="https://github.com/cibofdevs/instagam-clone-api">Clone Backend API</a>
-   - Intall Dependencies:
+   - Install Dependencies:
      ```bash
      pip install -r requirements.txt
      ```
